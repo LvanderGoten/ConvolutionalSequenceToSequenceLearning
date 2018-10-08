@@ -1,11 +1,11 @@
-# Attention Is All You Need
-Implementation of "Attention Is All You Need" (aka _The Transformer_)
+# Convolutional Sequence to Sequence Learning
+Implementation of "Convolutional Sequence to Sequence Learning"
 
 # Paper
-*Attention Is All You Need* [[arvix, 2017](https://arxiv.org/abs/1706.03762)] by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser & Illia Polosukhin.
+*Convolutional Sequence to Sequence Learning* [[arvix, 2017](https://arxiv.org/abs/1705.03122)] by Jonas Gehring, Michael Auli, David Grangier, Denis Yarats and Yann N. Dauphin.
 
 # Blog article
-[VANDERGOTEN.ai](http://vandergoten.ai/2018-09-18-attention-is-all-you-need/)
+TBA
 
 # Usage
 The model can be deployed using Docker. You can find a proper explanation in the article.
