@@ -62,8 +62,7 @@ def padding_aware_softmax(logits, query_length, key_length):
 
 
 def attention(query, key, value,
-              query_length, key_length,
-              mask_future=False):
+              query_length, key_length):
     """
      Multi-head attention
      :param query: A tf.Tensor of shape [B, TQ, E]
@@ -78,8 +77,7 @@ def attention(query, key, value,
         # Normalize scores
         attention_scores = padding_aware_softmax(logits=attention_scores,
                                                  query_length=query_length,
-                                                 key_length=key_length,
-                                                 mask_future=mask_future)  # [B, TQ, TK]
+                                                 key_length=key_length)  # [B, TQ, TK]
 
         # Apply scores to values
         summary = tf.matmul(attention_scores, value)     # [B, TQ, E]
