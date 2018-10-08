@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-sudo nvidia-docker build . -f Dockerfile --tag attention_is_all_you_need
+sudo nvidia-docker build . -f Dockerfile --tag convolutional_sequence_to_sequence_learning
 sudo nvidia-docker run -v `realpath MT_Data`:/data/ \
- --rm attention_is_all_you_need \
+ --rm convolutional_sequence_to_sequence_learning \
  --mode train \
  --config config.yml \
  --data /data/europarl-v7.tfrecords \
