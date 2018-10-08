@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 
 
-def padding_aware_softmax(logits, query_length, key_length, mask_future):
+def padding_aware_softmax(logits, query_length, key_length):
     """
     A numerically stable implementation of softmax that always assigns zero weight to padded values
     :param logits: A tf.Tensor of shape [B, TQ, TK]
@@ -28,23 +28,6 @@ def padding_aware_softmax(logits, query_length, key_length, mask_future):
 
         # Combine masks
         joint_mask = tf.cast(tf.matmul(query_mask, key_mask), tf.float32, name="joint_mask")    # [B, TQ, TK]
-
-        # Decoder is not allowed to peek into the future to prevent cheating
-        if mask_future:
-
-            # NOTE: This is a self-attention so joint_mask actually has shape [B, TQ, TQ]
-            row_ix = tf.expand_dims(tf.range(TQ), axis=1)   # [TQ, 1]
-            col_ix = tf.expand_dims(tf.range(TQ), axis=0)   # [1, TQ]
-
-            # Repeat indices
-            row_ix = tf.tile(row_ix, multiples=[1, TQ])     # [TQ, TQ]
-            col_ix = tf.tile(col_ix, multiples=[TQ, 1])     # [TQ, TQ]
-
-            # Lower triangular mask
-            tril_mask = tf.cast(tf.greater_equal(row_ix, col_ix), tf.float32, name="tril_mask")      # [TQ, TQ]
-
-            # Combine with other mask
-            joint_mask = tf.multiply(joint_mask, tril_mask, name="overlay_mask")     # [B, TQ, TQ]
 
         # Padding should not influence maximum (replace with minimum)
         logits_min = tf.reduce_min(logits, axis=2, keepdims=True, name="logits_min")      # [B, TQ, 1]
