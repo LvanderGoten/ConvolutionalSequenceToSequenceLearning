@@ -144,7 +144,7 @@ def encoder_layer(x, x_length,
     x = tf.layers.Dropout(rate=dropout_rate, noise_shape=[B, 1, E])(x, training=is_training)    # [B, T, E]
 
     # Apply residual
-    x = (x + residual)/tf.sqrt(2.)    # [B, T, E]
+    x = x + residual    # [B, T, E]
 
     # Batch normalization
     x = tf.layers.BatchNormalization(axis=2)(x, training=is_training)     # [B, T, E]
@@ -225,7 +225,7 @@ def decoder_layer(x, x_length,
     x = tf.layers.Dropout(rate=dropout_rate, noise_shape=[B, 1, E])(x, training=is_training)  # [B, T, E]
 
     # Residual connection
-    x = (x + residual)/tf.sqrt(2.)    # [B, T, E]
+    x = x + residual    # [B, T, E]
 
     # Batch normalization
     x = tf.layers.BatchNormalization(axis=2)(x, training=is_training)     # [B, T, E]
