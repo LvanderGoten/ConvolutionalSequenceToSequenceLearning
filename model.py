@@ -128,10 +128,10 @@ def encoder_layer(x, x_length,
                          strides=1,
                          padding="valid",
                          activation=None,
-                         use_bias=True)(x)     # [B, T, E]
+                         use_bias=True)(x)     # [B, T, 2 * E]
 
     # GLU activation
-    x = glu(x)
+    x = glu(x)  # [B, T, E]
 
     # Mask out padding
     mask = tf.sequence_mask(lengths=x_length,
@@ -209,10 +209,10 @@ def decoder_layer(x, x_length,
                          strides=1,
                          padding="valid",
                          activation=None,
-                         use_bias=True)(x)     # [B, T, E]
+                         use_bias=True)(x)     # [B, T, 2 * E]
 
     # GLU activation
-    x = glu(x)
+    x = glu(x)  # [B, T, E]
 
     # Attention
     x = attention(query=x,
@@ -220,6 +220,13 @@ def decoder_layer(x, x_length,
                   key=encoder_keys,
                   value=encoder_values,
                   key_length=encoder_length)  # [B, T, E]
+
+    # Mask out padding
+    mask = tf.sequence_mask(lengths=x_length,
+                            maxlen=T,
+                            dtype=tf.float32)   # [B, T]
+    mask = tf.expand_dims(mask, axis=2)     # [B, T, 1]
+    x = tf.multiply(mask, x)    # [B, T, E]
 
     # Dropout
     x = tf.layers.Dropout(rate=dropout_rate, noise_shape=[B, 1, E])(x, training=is_training)  # [B, T, E]

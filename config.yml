@@ -3,7 +3,7 @@ batch_size: 16
 bucket_boundaries: [1, 2, 4, 8, 16, 32, 64, 128, 256]
 num_epochs: 1
 shuffle_buffer_size: 1000
-learning_rate: 0.005
+learning_rate: 0.01
 learning_first_decay_steps: 100
 learning_t_mul: 2.0
 learning_m_mul: 0.9
