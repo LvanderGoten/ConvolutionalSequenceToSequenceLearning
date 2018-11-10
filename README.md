@@ -5,7 +5,7 @@ Implementation of "Convolutional Sequence to Sequence Learning"
 *Convolutional Sequence to Sequence Learning* [[arvix, 2017](https://arxiv.org/abs/1705.03122)] by Jonas Gehring, Michael Auli, David Grangier, Denis Yarats and Yann N. Dauphin.
 
 # Blog article
-TBA
+[VANDERGOTEN.ai](http://vandergoten.ai/2018-10-13-convolutional-sequence-to-sequence-learning/)
 
 # Usage
 The model can be deployed using Docker. You can find a proper explanation in the article.
